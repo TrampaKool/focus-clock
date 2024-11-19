@@ -29,6 +29,8 @@ const FocusClock = () => {
           if (prevMin === 0) {
             const nextIsOnBreak = !isOnBreak;
             setIsOnBreak(nextIsOnBreak);
+            const beep = new Audio("/beep.wav");
+            beep.play();
             return nextIsOnBreak ? breakLen - 1 : sessionLen - 1;
           }
           return prevMin - 1;
