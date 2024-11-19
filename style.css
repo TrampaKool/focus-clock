@@ -1,0 +1,184 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  font-family: "Helvetica", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(44, 62, 80);
+  color: rgb(173, 216, 230);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#react-container {
+  height: min(95vh, 700px);
+  background-color: rgb(75, 75, 75);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  font-size: 1.5rem;
+  border-radius: 20px;
+}
+
+.value {
+  margin: 20px 0;
+  background-color: rgb(40, 40, 40);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.value-label {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.time-label {
+  font-size: 2rem;
+}
+
+.inner-window {
+  background-color: rgb(20, 20, 20);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.input-label {
+  width: max-content;
+  margin-right: 5px;
+  margin: auto;
+}
+
+.input-label:hover {
+  cursor: pointer;
+}
+
+.input-field {
+  width: 100px;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  padding: 10px;
+  margin: auto;
+  border-radius: 10px;
+  outline: none;
+  color: white;
+  text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.settings {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(4, auto);
+}
+
+.settings-icon {
+  padding: 5px;
+  color: inherit;
+}
+
+.settings-button {
+  position: relative;
+  background-color: rgb(10, 10, 10);
+  border: none;
+  border-radius: 10px;
+  margin: 5px;
+  color: white;
+  transition: 0.05s linear;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-button:hover {
+  background-color: rgb(173, 216, 230);
+  color: black;
+}
+
+.settings-button:active {
+  transform: translateY(2px);
+}
+
+#flow-controls {
+  width: 110px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.flow-controls-buttons {
+  width: 40px;
+  height: 40px;
+}
+
+.bi {
+  position: relative;
+  top: 1px;
+}
+
+.bi-arrow-clockwise-spin {
+  animation: spin 0.3s linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 775px) and (orientation: portrait) {
+  .settings {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+  }
+
+  .settings .settings-button {
+    grid-row: 2/3;
+  }
+
+  .input-field,
+  .input-label {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 650px) {
+  .custom-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .custom-col {
+    flex: 1;
+  }
+
+  #react-container {
+    position: relative;
+    top: 80px;
+    min-height: 85vh;
+    height: auto;
+  }
+}
