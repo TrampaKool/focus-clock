@@ -3,7 +3,7 @@ const { useState, useEffect } = React;
 const FocusClock = () => {
   const [sessionLen, setSessionLen] = useState(25);
   const [breakLen, setBreakLen] = useState(5);
-  const [minutes, setMinutes] = useState(25);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isPaused, setIsPaused] = useState(true);
   const [isOnBreak, setIsOnBreak] = useState(false);
@@ -29,7 +29,7 @@ const FocusClock = () => {
           if (prevMin === 0) {
             const nextIsOnBreak = !isOnBreak;
             setIsOnBreak(nextIsOnBreak);
-            const beep = new Audio("/beep.wav");
+            const beep = new Audio("beep.wav");
             beep.play();
             return nextIsOnBreak ? breakLen - 1 : sessionLen - 1;
           }
