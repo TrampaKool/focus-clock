@@ -23,9 +23,9 @@ const FocusClock = () => {
   };
 
   const updateTimer = () => {
-    setSeconds(prevSec => {
+    setSeconds((prevSec) => {
       if (prevSec === 0) {
-        setMinutes(prevMin => {
+        setMinutes((prevMin) => {
           if (prevMin === 0) {
             const nextIsOnBreak = !isOnBreak;
             setIsOnBreak(nextIsOnBreak);
@@ -53,27 +53,27 @@ const FocusClock = () => {
     return () => clearInterval(intervalAction);
   }, [isPaused]);
 
-  return /*#__PURE__*/(
-    React.createElement("div", { className: "row custom-row" }, /*#__PURE__*/
-    React.createElement(Display, {
-      sessionLen: sessionLen,
-      breakLen: breakLen,
-      minutes: minutes,
-      seconds: seconds,
-      isOnBreak: isOnBreak,
-      isPaused: isPaused,
-      setIsPaused: setIsPaused,
-      handleResetClick: handleResetClick }), /*#__PURE__*/
-
-    React.createElement(Settings, {
-      sessionLen: sessionLen,
-      setSessionLen: setSessionLen,
-      breakLen: breakLen,
-      setBreakLen: setBreakLen,
-      isPaused: isPaused })));
-
-
-
+  return (
+    <div className="row custom-row">
+      <Display
+        sessionLen={sessionLen}
+        breakLen={breakLen}
+        minutes={minutes}
+        seconds={seconds}
+        isOnBreak={isOnBreak}
+        isPaused={isPaused}
+        setIsPaused={setIsPaused}
+        handleResetClick={handleResetClick}
+      />
+      <Settings
+        sessionLen={sessionLen}
+        setSessionLen={setSessionLen}
+        breakLen={breakLen}
+        setBreakLen={setBreakLen}
+        isPaused={isPaused}
+      />
+    </div>
+  );
 };
 
 const Display = ({
@@ -84,62 +84,62 @@ const Display = ({
   isOnBreak,
   isPaused,
   setIsPaused,
-  handleResetClick }) =>
-{
-  return /*#__PURE__*/(
-    React.createElement(React.Fragment, null, /*#__PURE__*/
-    React.createElement("div", { id: "display-container", className: "col-12 custom-col" }, /*#__PURE__*/
-    React.createElement("div", { className: "d-flex flex-column justify-content-center align-items-center" }, /*#__PURE__*/
-    React.createElement("div", { style: { fontSize: "4rem" } },
-    isOnBreak ? "Break" : "Session"), /*#__PURE__*/
-
-    React.createElement("div", {
-      style: { width: "max-content", fontSize: "8rem" },
-      className: "inner-window fw-bold mt-2" },
-
-    minutes < 10 ? "0" + minutes : minutes, " :", " ",
-    seconds < 10 ? "0" + seconds : seconds), /*#__PURE__*/
-
-    React.createElement("div", { id: "flow-controls" }, /*#__PURE__*/
-    React.createElement("button", {
-      className: "settings-button flow-controls-buttons",
-      style: { position: "relative" },
-      onClick: () => setIsPaused(prev => !prev) }, /*#__PURE__*/
-
-    React.createElement("i", {
-      style: { display: isPaused ? "inline" : "none" },
-      className: "bi bi-play-fill" }), /*#__PURE__*/
-
-    React.createElement("i", {
-      style: { display: !isPaused ? "inline" : "none" },
-      className: "bi bi-pause-fill" })), /*#__PURE__*/
-
-
-    React.createElement("button", {
-      className: "settings-button flow-controls-buttons",
-      onClick: handleResetClick }, /*#__PURE__*/
-
-    React.createElement("i", { className: "bi bi-arrow-clockwise" }))))), /*#__PURE__*/
-
-
-
-
-    React.createElement("div", { className: "col-6  custom-col d-flex flex-column justify-content-evenly" }, /*#__PURE__*/
-    React.createElement("div", { className: "value" }, /*#__PURE__*/
-    React.createElement("div", { className: "value-label" }, "Session Length"), /*#__PURE__*/
-    React.createElement("div", { className: "time-label" },
-    sessionLen < 10 ? "0" + sessionLen : sessionLen, " : 00")), /*#__PURE__*/
-
-
-    React.createElement("div", { className: "value" }, /*#__PURE__*/
-    React.createElement("div", { className: "value-label" }, "Break Length"), /*#__PURE__*/
-    React.createElement("div", { className: "time-label" },
-    breakLen < 10 ? "0" + breakLen : breakLen, " : 00")))));
-
-
-
-
-
+  handleResetClick
+}) => {
+  return (
+    <>
+      <div id="display-container" className="col-12 custom-col">
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <div style={{ fontSize: "4rem" }}>
+            {isOnBreak ? "Break" : "Session"}
+          </div>
+          <div
+            style={{ width: "max-content", fontSize: "8rem" }}
+            className="inner-window fw-bold mt-2"
+          >
+            {minutes < 10 ? "0" + minutes : minutes} :{" "}
+            {seconds < 10 ? "0" + seconds : seconds}
+          </div>
+          <div id="flow-controls">
+            <button
+              className="settings-button flow-controls-buttons"
+              style={{ position: "relative" }}
+              onClick={() => setIsPaused((prev) => !prev)}
+            >
+              <i
+                style={{ display: isPaused ? "inline" : "none" }}
+                className="bi bi-play-fill"
+              />
+              <i
+                style={{ display: !isPaused ? "inline" : "none" }}
+                className="bi bi-pause-fill"
+              />
+            </button>
+            <button
+              className="settings-button flow-controls-buttons"
+              onClick={handleResetClick}
+            >
+              <i className="bi bi-arrow-clockwise" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="col-6  custom-col d-flex flex-column justify-content-evenly">
+        <div className="value">
+          <div className="value-label">Session Length</div>
+          <div className="time-label">
+            {sessionLen < 10 ? "0" + sessionLen : sessionLen} : 00
+          </div>
+        </div>
+        <div className="value">
+          <div className="value-label">Break Length</div>
+          <div className="time-label">
+            {breakLen < 10 ? "0" + breakLen : breakLen} : 00
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 const Settings = ({
@@ -147,10 +147,10 @@ const Settings = ({
   breakLen,
   setSessionLen,
   setBreakLen,
-  isPaused }) =>
-{
-  const updateSessionLen = val => {
-    setSessionLen(prev => {
+  isPaused
+}) => {
+  const updateSessionLen = (val) => {
+    setSessionLen((prev) => {
       const newVal = prev + val;
       if (newVal >= 1 && newVal <= 60) {
         return newVal;
@@ -159,8 +159,8 @@ const Settings = ({
     });
   };
 
-  const updateBreakLen = val => {
-    setBreakLen(prev => {
+  const updateBreakLen = (val) => {
+    setBreakLen((prev) => {
       const newVal = prev + val;
       if (newVal >= 1 && newVal <= 60) {
         return newVal;
@@ -169,9 +169,9 @@ const Settings = ({
     });
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const setFunc =
-    event.target.id === "session-input" ? setSessionLen : setBreakLen;
+      event.target.id === "session-input" ? setSessionLen : setBreakLen;
     const val = event.target.value;
     setFunc(() => {
       if (val > 60) {
@@ -183,70 +183,70 @@ const Settings = ({
     });
   };
 
-  return /*#__PURE__*/(
-    React.createElement("div", { className: "col-6 custom-col d-flex flex-column justify-content-evenly" }, /*#__PURE__*/
-    React.createElement("div", { className: "value settings" }, /*#__PURE__*/
-    React.createElement("label", { className: "input-label", for: "session-input" }, "Set Session"), /*#__PURE__*/
-
-
-    React.createElement("button", {
-      onClick: () => updateSessionLen(-1),
-      className: "settings-button",
-      disabled: !isPaused }, /*#__PURE__*/
-
-    React.createElement("i", { class: "bi bi-dash-lg settings-icon" })), /*#__PURE__*/
-
-    React.createElement("input", {
-      value: sessionLen,
-      onChange: handleChange,
-      disabled: !isPaused,
-      type: "number",
-      inputMode: "numeric",
-      id: "session-input",
-      className: "input-field" }), /*#__PURE__*/
-
-    React.createElement("button", {
-      onClick: () => updateSessionLen(1),
-      className: "settings-button",
-      disabled: !isPaused }, /*#__PURE__*/
-
-    React.createElement("i", { class: "bi bi-plus-lg settings-icon" }))), /*#__PURE__*/
-
-
-    React.createElement("div", { className: "value settings" }, /*#__PURE__*/
-    React.createElement("label", {
-      style: { marginRight: "2rem" },
-      className: "input-label",
-      for: "break-input" }, "Set Break"), /*#__PURE__*/
-
-
-
-    React.createElement("button", {
-      onClick: () => updateBreakLen(-1),
-      className: "settings-button",
-      disabled: !isPaused }, /*#__PURE__*/
-
-    React.createElement("i", { class: "bi bi-dash-lg settings-icon" })), /*#__PURE__*/
-
-    React.createElement("input", {
-      value: breakLen,
-      onChange: handleChange,
-      disabled: !isPaused,
-      type: "number",
-      inputMode: "numeric",
-      id: "break-input",
-      className: "input-field" }), /*#__PURE__*/
-
-    React.createElement("button", {
-      onClick: () => updateBreakLen(1),
-      className: "settings-button",
-      disabled: !isPaused }, /*#__PURE__*/
-
-    React.createElement("i", { class: "bi bi-plus-lg settings-icon" })))));
-
-
-
-
+  return (
+    <div className="col-6 custom-col d-flex flex-column justify-content-evenly">
+      <div className="value settings">
+        <label className="input-label" for="session-input">
+          Set Session
+        </label>
+        <button
+          onClick={() => updateSessionLen(-1)}
+          className="settings-button"
+          disabled={!isPaused}
+        >
+          <i class="bi bi-dash-lg settings-icon"></i>
+        </button>
+        <input
+          value={sessionLen}
+          onChange={handleChange}
+          disabled={!isPaused}
+          type="number"
+          inputMode="numeric"
+          id="session-input"
+          className="input-field"
+        />
+        <button
+          onClick={() => updateSessionLen(1)}
+          className="settings-button"
+          disabled={!isPaused}
+        >
+          <i class="bi bi-plus-lg settings-icon"></i>
+        </button>
+      </div>
+      <div className="value settings">
+        <label
+          style={{ marginRight: "2rem" }}
+          className="input-label"
+          for="break-input"
+        >
+          Set Break
+        </label>
+        <button
+          onClick={() => updateBreakLen(-1)}
+          className="settings-button"
+          disabled={!isPaused}
+        >
+          <i class="bi bi-dash-lg settings-icon"></i>
+        </button>
+        <input
+          value={breakLen}
+          onChange={handleChange}
+          disabled={!isPaused}
+          type="number"
+          inputMode="numeric"
+          id="break-input"
+          className="input-field"
+        />
+        <button
+          onClick={() => updateBreakLen(1)}
+          className="settings-button"
+          disabled={!isPaused}
+        >
+          <i class="bi bi-plus-lg settings-icon"></i>
+        </button>
+      </div>
+    </div>
+  );
 };
 
-ReactDOM.render( /*#__PURE__*/React.createElement(FocusClock, null), document.getElementById("react-container"));
+ReactDOM.render(<FocusClock />, document.getElementById("react-container"));
